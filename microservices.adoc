@@ -1,0 +1,109 @@
+// Exemplo adaptado de https://github.com/spring-projects/spring-restdocs/blob/master/samples/rest-notes-spring-data-rest/src/main/asciidoc/api-guide.adoc
+
+= My App - Guia da API REST
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title: Sumário
+:toclevels: 3
+:sectnums:
+:sectlinks:
+:operation-path-parameters-title: Parâmetros do path da requisição
+:operation-request-headers-title: Parâmetros do cabeçalho da requisição
+:operation-curl-request-title: Exemplo de requisição com curl
+:operation-httpie-request-title: Exemplo de requisição com httpie
+:operation-http-request-title: Exemplo de requisição
+:operation-request-fields-title: Descrição dos campos da requisição
+:operation-response-headers-title: Parâmetros do cabeçalho da resposta
+:operation-request-body-title: Corpo da requisição
+:operation-http-response-title: Exemplo de resposta
+:operation-response-fields-title: Descrição dos campos da resposta
+:operation-response-body-title: Corpo da resposta
+
+[introduction]
+== Introdução
+
+Nesta documentação serão apresentados os serviços disponíveis na API REST do projeto "My App".
+
+[[overview]]
+== Visão geral
+
+[[overview-http-verbs]]
+=== Verbos HTTP
+
+O projeto "My App" procura ser o mais aderente possível aos padrões HTTP e convenções REST quanto ao uso dos verbos HTTP.
+
+|===
+| Verbo | Uso
+
+| `GET`
+| Utilizado para obter um recurso.
+
+| `POST`
+| Utilizado para criar um novo recurso.
+
+| `PUT`
+| Utilizado para atualizar completamente um recurso existente, informando todos os dados do recurso.
+
+| `PATCH`
+| Utilizado para atualizar parcialmente um recurso existente, informando apenas parte dos seus dados.
+
+| `DELETE`
+| Utilizado para deletar um recurso existente.
+|===
+
+[[overview-http-status-codes]]
+=== Códigos de status HTTP
+
+O projeto "My App" procura ser o mais aderente possível aos padrões HTTP e convenções REST quanto ao uso dos códigos de status HTTP.
+
+|===
+| Código de status | Uso
+
+| `200 OK` 
+| A requisição foi completada com sucesso.
+
+| `201 Criado`
+| A requisição foi completada e resultou em um ou mais novos recursos que estão sendo criados.
+
+| `204 Sem conteúdo`
+| A requisição foi completada e não existe nenhum conteúdo adicional para ser informado na resposta.
+
+| `400 Requisição inválida`
+| O servidor não pode processar a requisição devido a um erro de sintaxe ou uma violação de regra de negócio.
+
+| `404 Não encontrado`
+| O servidor não encontrou o recurso solicitado ou não deseja revelar a sua existência.
+
+| `500 Erro interno do servidor`
+| Ocorreu um erro ao processar a requisição.
+|===
+
+A lista completa dos códigos de status HTTP pode ser consultada através da documentação https://tools.ietf.org/html/rfc7231#section-6.1[Overview of Status Codes].
+
+[[overview-errors]]
+=== Erros
+
+Sempre que uma mensagem de erro (código de status >= 400) for retornada, no conteúdo da mensagem será informado um objeto JSON que descreve o problema. O objeto de erro possui a seguinte estrutura:
+
+operation::ApiGuideTest/errorExample[snippets='response-fields']
+
+Por exemplo, uma requisição que tenta applicar uma tag inexistente a uma nota irá produzir um erro `404 Não encontrado` com a mensagem:
+
+operation::ApiGuideTest/errorExample[snippets='http-response']
+
+[[resources]]
+== Resources
+
+[[resources-index]]
+=== Index
+
+The index provides the entry point into the service.
+
+[[resources-index-access]]
+==== Accessing the index
+
+A `GET` request is used to access the index
+
+operation::IndexControllerTest/getIndex[]
